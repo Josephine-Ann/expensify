@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
     return {
         filters: state.filters
     };
-};
+}
 
 export default connect(mapStateToProps)(ExpenseListFilters);
 
