@@ -10,16 +10,18 @@
     "test": "jest --config=jest.config.json"
   },
   "dependencies": {
-    "babel-cli": "6.24.1",
-    "babel-core": "6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "1.5.2",
-    "babel-preset-react": "6.24.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
     "css-loader": "0.28.4",
     "enzyme-adapter-react-16": "1.0.0",
+    "enzyme-to-json": "3.0.1",
     "jest": "20.0.4",
+    "jest-cli": "^25.2.0",
     "live-server": "^1.2.1",
     "moment": "2.18.1",
     "node-sass": "^4.13.1",
@@ -42,6 +44,9 @@
     "webpack-dev-server": "2.5.1"
   },
   "devDependencies": {
-    "enzyme": "2.9.1"
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "enzyme": "^3.11.0",
+    "jest-environment-jsdom": "^24.9.0"
   }
 }
