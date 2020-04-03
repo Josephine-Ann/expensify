@@ -14,7 +14,18 @@ test('should handle onSubmit', () => {
     const onSubmit = jest.fn();
     const history = { push: jest.fn() };
     const wrapper = shallow(<AddExpensePage onSubmit={onSubmit} history={history} />);
-    wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1])
+    wrapper.find('form').simulate('submit', { preventDefault() {} });
+    wrapper.find('form').prop('onSubmit')(expenses[1])
     expect(history.push).toHaveBeenLastCalledWith('/');
     expect(onSubmit).toHaveBeenLastCalledWith(expenses[1]);
 });
+
+// test('should render error for invalid form submission', () => {
+//     const wrapper = shallow(<ExpenseForm />);
+//     expect(wrapper).toMatchSnapshot();
+//     wrapper.find('form').simulate('submit', {
+//         preventDefault: () => {}
+//     });
+//     expect(wrapper.state('error').length).toBeGreaterThan(0);
+//     expect(wrapper).toMatchSnapshot();
+// })
