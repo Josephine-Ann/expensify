@@ -5,6 +5,7 @@ exports[`should render Header correctly 1`] = `
   <h1>
     Expensify
   </h1>
+  <Connect(ExpenseSummary) />
   <NavLink
     activeClassName="isActive"
     exact={true}
