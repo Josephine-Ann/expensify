@@ -10,9 +10,9 @@ exports[`should render ExpenseListItem with expense 1`] = `
     </p>
   </Link>
   <p>
-    0
-     - 
-    195
+    $1.95
+    -
+    January 1st, 1970
   </p>
 </div>
 `;
@@ -25,7 +25,9 @@ exports[`should render ExpenseListItem with expense 2`] = `
     <p />
   </Link>
   <p>
-     - 
+    $0.00
+    -
+    May 2nd, 2020
   </p>
 </div>
 `;
