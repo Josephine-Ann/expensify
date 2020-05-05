@@ -27,7 +27,7 @@ exports[`should render ExpenseListItem with expense 2`] = `
   <p>
     $0.00
     -
-    May 2nd, 2020
+    May 5th, 2020
   </p>
 </div>
 `;
