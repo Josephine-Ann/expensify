@@ -39,7 +39,6 @@ test('should add expense to database and store', (done) => {
         note: 'This one is better',
         createdAt: 1000
     };
-
     store.dispatch(startAddExpense(expenseData)).then(() => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({
@@ -55,6 +54,8 @@ test('should add expense to database and store', (done) => {
         done();    
     });
 });
+
+
 
 test('should add expense with defaults to database and store', () => {
     
