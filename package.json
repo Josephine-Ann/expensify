@@ -7,7 +7,7 @@
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
-    "test": "jest --config=jest.config.json",
+    "test": "jest --config=jest.config.json --forceExit",
     "start": "node server/server.js",
     "heroku-postbuild": "yarn run build:prod"
   },
@@ -19,7 +19,7 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "21.0.0",
     "babel-loader": "^8.0.0",
     "css-loader": "0.28.4",
     "enzyme-adapter-react-16": "1.0.0",
@@ -50,6 +50,7 @@
     "webpack": "3.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.6",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "3.0.1",
     "react-test-renderer": "^16.0.0",
