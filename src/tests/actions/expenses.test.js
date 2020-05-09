@@ -88,4 +88,25 @@ test("should add expense to database and store (done the way Bill mentioned)", a
   await expect(dbRef.val()).toEqual(expenseData);
 });
 
-test("should add expense with defaults to database and store", () => {});
+test("should add expense with defaults to database and store", async () => {
+    const store = createMockStore({});
+    const expenseData = {
+      description: '', 
+      amount: 0, 
+      note: '', 
+      createdAt: 0
+    };
+  
+    const dbRef = await store.dispatch(startAddExpense({})).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "ADD_EXPENSE",
+        expense: {
+          id: expect.any(String),
+          ...expenseData,
+        },
+      });
+      return database.ref(`expenses/${actions[0].expense.id}`).once("value");
+    }); 
+    await expect(dbRef.val()).toEqual(expenseData);
+});
