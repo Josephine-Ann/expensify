@@ -55,8 +55,8 @@ test("should edit expense from firebase", (done) => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({
       type: 'EDIT_EXPENSE',
-      id: id,
-      updates: updates
+      id,
+      updates
     });
       return database.ref(`expenses/${id}`).once('value');
     }).then((snapshot) => {
@@ -64,12 +64,6 @@ test("should edit expense from firebase", (done) => {
       done();
     });
     });
-
-  // const action = editExpense("123abc", { note: "New note value" });
-  // expect(action).toEqual({
-  //   type: "EDIT_EXPENSE",
-  //   id: "123abc",
-  //   updates: { note: "New note value" },
 
  test("should setup edit expense action object", () => {
    const action = editExpense("123abc", { note: "New note value" });
