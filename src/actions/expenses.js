@@ -25,17 +25,32 @@ export const startAddExpense = (expenseData = {}) => {
     }
 }
 
-export const removeExpense = (id) => ({
-    type: 'REMOVE_EXPENSE',
-    id  
-})
+ export const removeExpense = ({ id } = {}) => ({
+     type: 'REMOVE_EXPENSE',
+     id  
+ });
 
+ export const startRemoveExpense = ({ id } = {}) => {
+     return (dispatch) => {
+        return database.ref(`expenses/${id}`).remove().then(() => {
+             dispatch(removeExpense({ id }));
+         });
+     }
+ }
 
-// REMOVE_EXPENSE
-// EDIT_EXPENSE
-
-// figure out if it's a string? 
-// righteeooooh, vale, a veure...
+//  export const removeExpense = ({ id } = {}) => ({
+//      type: 'REMOVE_EXPENSE',
+//      id
+//    });
+  
+//    export const startRemoveExpense = ({ id } = {}) => {
+//      return (dispatch) => {
+//        return database.ref(`expenses/${id}`).remove().then(() => {
+//          dispatch(removeExpense({ id }));
+//        });
+//      };
+//    };
+  
 
 export const editExpense = ( id, updates ) => ({
     type: 'EDIT_EXPENSE',

@@ -6,7 +6,8 @@ import {
   editExpense,
   removeExpense,
   setExpenses,
-  startSetExpenses
+  startSetExpenses,
+  startRemoveExpense
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenses";
 import database from "../../firebase/firebase";
@@ -21,13 +22,27 @@ beforeEach((done) => {
   database.ref('expenses').set(expensesData).then(() => done());
 });
 
-
- 
-test("should setup remove expense action object", () => {
-  const action = removeExpense("123abc");
+test('should setup remove expense action object', () => {
+  const action = removeExpense({ id: '123abc' });
   expect(action).toEqual({
-    type: "REMOVE_EXPENSE",
-    id: "123abc",
+    type: 'REMOVE_EXPENSE',
+    id: '123abc'
+  });
+});
+
+test('should remove expense from firebase', (done) => {
+  const store = createMockStore({});
+  const id = expenses[2].id;
+  store.dispatch(startRemoveExpense({ id })).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_EXPENSE',
+      id
+    });
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toBeFalsy();
+    done();
   });
 });
 
@@ -55,10 +70,8 @@ test("should add expense to database and store", (done) => {
     amount: 3000,
     note: "This one is better",
     createdAt: 1000,
-  };
-
-  store
-    .dispatch(startAddExpense(expenseData))
+  }
+  store.dispatch(startAddExpense(expenseData))
     .then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual({
@@ -103,12 +116,12 @@ test("should add expense to database and store (done the way Bill mentioned)", a
 test("should add expense with defaults to database and store", async () => {
     const store = createMockStore({});
     const expenseData = {
-      description: '', 
-      amount: 0, 
-      note: '', 
+      description: '',
+      amount: 0,
+      note: '',
       createdAt: 0
     };
-  
+
     const dbRef = await store.dispatch(startAddExpense({})).then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual({
@@ -119,7 +132,7 @@ test("should add expense with defaults to database and store", async () => {
         },
       });
       return database.ref(`expenses/${actions[0].expense.id}`).once("value");
-    }); 
+    });
     await expect(dbRef.val()).toEqual(expenseData);
 });
 
