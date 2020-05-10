@@ -71,6 +71,15 @@ test('should edit expense', () => {
     expect(state[0].amount).toEqual(expenses[0].amount);
     expect(state[0].createdAt).toEqual(expenses[0].createdAt);
 });
+
+test('should set expenses', () => {
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses: [expenses[1]]
+    }
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual([expenses[1]])
+})
 // test('should not edit expense if expense not found', () => {
 //     const action = {
 //         type: 'EDIT_EXPENSE',
@@ -84,4 +93,4 @@ test('should edit expense', () => {
 //     };
 //     const state = expensesReducer(expenses, action);
 //     expect(state).toEqual([expenses[1], expenses[1], expenses[2]]);
-// });
+// }); 

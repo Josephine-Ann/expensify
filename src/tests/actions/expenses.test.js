@@ -5,6 +5,8 @@ import {
   addExpense,
   editExpense,
   removeExpense,
+  setExpenses,
+  startSetExpenses
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenses";
 import database from "../../firebase/firebase";
@@ -20,7 +22,7 @@ beforeEach((done) => {
 });
 
 
-
+ 
 test("should setup remove expense action object", () => {
   const action = removeExpense("123abc");
   expect(action).toEqual({
@@ -121,30 +123,37 @@ test("should add expense with defaults to database and store", async () => {
     await expect(dbRef.val()).toEqual(expenseData);
 });
 
-// test('should add expense with defaults to database and store', (done) => {
-//   const store = createMockStore({});
-//   const expenseDefaults = {
-//     description: '',
-//     amount: 0,
-//     note: '',
-//     createdAt: 0
-//   };
+test('should setup set expense action object with data', () => {
+  const action = setExpenses(expenses);
+  expect(action).toEqual({
+    type: 'SET_EXPENSES',
+    expenses
+  })
+})
 
-//   store.dispatch(startAddExpense({})).then(() => {
-//     const actions = store.getActions();
-//     expect(actions[0]).toEqual({
-//       type: 'ADD_EXPENSE',
-//       expense: {
-//         id: expect.any(String),
-//         ...expenseDefaults
-//       }
-//     });
+test('should fetch the expenses from firebase', (done) => {
+  const store = createMockStore({});
+  store.dispatch(startSetExpenses()).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+      type: 'SET_EXPENSES',
+      expenses
+    })
+    done();
+  })
+})
 
-//     return database.ref(`expenses/${actions[0].expense.id}`).once('value');
-//   }).then((snapshot) => {
-//     expect(snapshot.val()).toEqual(expenseDefaults);
-//     done();
-//   });
-// });
+// export const startSetExpenses = () => {
+//   return (dispatch) => {
+//      return database.ref('expenses').once('value').then((snapshot) => {
+//      const expenses = []
 
-
+//      snapshot.forEach((childSnapshot) => {
+//          expenses.push({
+//              id: childSnapshot.key,
+//             ...childSnapshot.val()
+//         })
+//     })
+//       })
+//   }
+//  }
