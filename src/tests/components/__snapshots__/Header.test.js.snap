@@ -7,23 +7,22 @@ exports[`should render Header correctly 1`] = `
   </h1>
   <Connect(ExpenseSummary) />
   <NavLink
-    activeClassName="isActive"
+    activeClassName="is-active"
     exact={true}
-    to="/"
+    to="/dashboard"
   >
     Dashboard
   </NavLink>
   <NavLink
-    activeClassName="isActive"
+    activeClassName="is-active"
     to="/create"
   >
     Create an expense
   </NavLink>
-  <NavLink
-    activeClassName="isActive"
-    to="/help"
+  <button
+    onClick={[MockFunction]}
   >
-    Help
-  </NavLink>
+    Logout
+  </button>
 </header>
 `;
