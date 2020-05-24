@@ -26,7 +26,6 @@ export const startAddExpense = (expenseData = {}) => {
     }
 }
 
-
  export const removeExpense = ({ id } = {}) => ({
      type: 'REMOVE_EXPENSE',
      id  
@@ -44,7 +43,7 @@ export const startAddExpense = (expenseData = {}) => {
 export const editExpense = (id, updates) => ({
     type: 'EDIT_EXPENSE',
     id,
-    updates  
+    updates   
 })
 
 export const startEditExpense = (id, updates) => {
