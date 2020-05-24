@@ -8,7 +8,6 @@ exports[`should render Header correctly 1`] = `
   <Connect(ExpenseSummary) />
   <NavLink
     activeClassName="is-active"
-    exact={true}
     to="/dashboard"
   >
     Dashboard
