@@ -35,7 +35,7 @@ test('should stop default filter values', () => {
          endDate: undefined,
          sortBy: 'amount'
      };
-     const action = { type: 'CHANGE_TEXT', text: 'e' };
+     const action = { type: 'SET_TEXT_FILTER', text: 'e' };
      const state = filtersReducer(currentState, action);
      expect(state.text).toBe('e');
  })

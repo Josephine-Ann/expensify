@@ -1,17 +1,17 @@
 import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
-import { addExpense } from '../actions/expenses';
 
 const now = moment();
 
 export default class ExpenseForm extends React.Component {
     constructor(props) {
         super(props); 
+
         this.state = {
-            description: props.expense ? props.expense.description : "",
-            note: props.expense ? props.expense.note : "",
-            amount: props.expense ? (props.expense.amount / 100).toString() : "",
+            description: props.expense ? props.expense.description : '',
+            note: props.expense ? props.expense.note : '',
+            amount: props.expense ? (props.expense.amount / 100).toString() : '',
             createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
             calendarFocused: false,
             error: ''
@@ -41,10 +41,10 @@ export default class ExpenseForm extends React.Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
+
         if (!this.state.description || !this.state.amount) {
             this.setState(() => ({ error: "Please give description and amount" }));
         } else {
-            //props.dispatch(addExpense({ description: this.state.description, note: this.state.note, amount: this.state.amount, createdAt: this.state.createdAt }))
             this.setState(() => ({ error: "" }));
             this.props.onSubmit({
                 description: this.state.description,
@@ -66,24 +66,25 @@ export default class ExpenseForm extends React.Component {
             value={this.state.description}
             onChange={this.onDescriptionChange}
             />
-            <SingleDatePicker 
-            date={this.state.createdAt} // represents where you want to start
-            onDateChange={this.onDateChange} // when someone picks a day 
-            focused={this.state.calendarFocused}
-            onFocusChange={this.onFocusChange}
-            numberOfMonths={1} // how many months shown
-            isOutsideRange={(day) => false } // What is the logic for when you can choose date? we have no restrictions
-            />
             <input
             type="test"
             placeholder="Amount"
             value={this.state.amount}
             onChange={this.onAmountChange}
             />
+            <SingleDatePicker 
+            date={this.state.createdAt} 
+            onDateChange={this.onDateChange} 
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1} 
+            isOutsideRange={(day) => false } 
+            />
             <textarea 
+            placeholder="Add a note for your expense (optional)"
             value={this.state.note}
             onChange={this.onNoteChange}
-            placeholder="Add a note for your expense (optional)">
+            >
             </textarea>
             <button>Add Expense</button>
             </form>

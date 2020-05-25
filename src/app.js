@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import AppRouter, { history } from './routes/AppRouter';
+import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
 import { login, logout } from './actions/auth';
@@ -12,15 +12,11 @@ import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 
 const store = configureStore();
-
-// console.log(visibleExpenses);
-
 const jsx = (
     <Provider store={store}>
     <AppRouter />
     </Provider>
 );
-
 let hasRendered = false;
 const renderApp = () => {
     if (!hasRendered) {
