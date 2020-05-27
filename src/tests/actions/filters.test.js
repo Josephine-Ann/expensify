@@ -48,7 +48,7 @@ test('should set text to filter', () => {
 test('should set text to default without variables', () => {
     const action = setTextFilter()
     expect(action).toEqual({
-        type: 'SET_TEXT_FILTER',
+        type: 'CHANGE_TEXT',
         text: ''
     });
 });

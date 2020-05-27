@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ExpenseSummary } from '../../components/ExpenseSummary';
+import { ExpensesSummary } from '../../components/ExpensesSummary';
 
 test('should render ExpenseSummary correctly with multiple expenses', () => {
-    const wrapper = shallow(<ExpenseSummary expenseTotal={3334455} amountExpenses={3}/>);
+    const wrapper = shallow(<ExpensesSummary expenseTotal={3334455} amountExpenses={3}/>);
     expect(wrapper).toMatchSnapshot();
 });
 
