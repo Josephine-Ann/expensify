@@ -2,8 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { startEditExpense, startRemoveExpense } from '../actions/expenses';
+import DeleteModal from './DeleteModal'
 
 export class EditExpensePage extends React.Component {
+    state = {
+        deletedOption: false
+    };
     onSubmit = (expense) => {
         this.props.startEditExpense(this.props.expense.id, expense);
         this.props.history.push('/');
@@ -12,6 +16,12 @@ export class EditExpensePage extends React.Component {
         this.props.startRemoveExpense({ id: this.props.expense.id });
         this.props.history.push('/');
     }
+    onSelect = () => {
+        this.setState({ deletedOption: true })
+    }
+    clearStateCloseModal = () => {
+        this.setState(() => ({ deletedOption: null  }));
+      }
     render() {
         return (
             <div>
@@ -23,7 +33,12 @@ export class EditExpensePage extends React.Component {
                     expense={this.props.expense}
                     onSubmit={this.onSubmit}
                     />
-                    <button className="button button--secondary" onClick={this.onRemove}>Remove expense</button>
+                    <button className="button button--secondary" onClick={this.onSelect}>Remove expense</button>
+                    <DeleteModal
+                    modalOpen={this.state.deletedOption}
+                    clearStateCloseModal={this.clearStateCloseModal}
+                    onRemove={this.onRemove}
+                    />
                 </div>
             </div>
         );
@@ -39,3 +54,18 @@ const mapDispatchToProps = (dispatch, props) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage);
+
+
+ // yarn add react-modal@2.2.2
+// make a new component 
+// import Modal from 'react-modal';
+// default arrow function with props 
+// <Modal isOpen={!!props.selectedOption} (will resolve to true/false) contentLabel="Selected Option ">
+// </Modal>
+// above layer, track selectedOption as undefined
+// Pass it down to option modal in render of that layer,
+// handleDeleteOption = (optionToRemove) => {
+// selectedOption={this.state.selectedOption}
+//this.setState((prevState) => ({
+//    options: prevState.options.filter((option) => optionToRemove !== option)
+// }))}

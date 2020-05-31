@@ -29,14 +29,18 @@ import numeral from 'numeral';
 import selectExpenses from '../selectors/expenses';
 import selectExpensesTotal from '../selectors/expenses-total';
 
-export const ExpensesSummary = ({ expenseCount, expensesTotal }) => {
-  const expenseWord = expenseCount === 1 ? 'expense' : 'expenses' ;
-  const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00');
-  
+export const ExpensesSummary = ({ visibleExpenseCount, invisibleExpenseCount, visibleExpensesTotal, invisibleExpensesTotal }) => {
+  const visibleExpenseWord = visibleExpenseCount === 1 ? 'expense' : 'expenses' ;
+  const invisibleExpenseWord = invisibleExpenseCount === 1 ? 'expense' : 'expenses' ;
+
+  const visibleFormattedExpensesTotal = numeral(visibleExpensesTotal / 100).format('$0,0.00');
+  const invisibleFormattedExpensesTotal = numeral(invisibleExpensesTotal / 100).format('$0,0.00');
+
   return (
     <div className="page-header">
       <div className="content-container">
-        <h1 className="page-header__title">Viewing <span>{expenseCount}</span> {expenseWord} totalling <span>{formattedExpensesTotal}</span></h1>
+        <h1 className="page-header__title">Viewing <span>{visibleExpenseCount}</span> {visibleExpenseWord} totalling <span>{visibleFormattedExpensesTotal}</span></h1>
+        <h1 className="page-header__title">Hidden <span>{invisibleExpenseCount}</span> {invisibleExpenseWord} totalling <span>{invisibleFormattedExpensesTotal}</span></h1>
         <div className="page-header__actions">
           <Link className="button" to="/create">Add Expense</Link>
         </div>
@@ -47,10 +51,13 @@ export const ExpensesSummary = ({ expenseCount, expensesTotal }) => {
 
 const mapStateToProps = (state) => {
   const visibleExpenses = selectExpenses(state.expenses, state.filters);
+  const invisibleExpenses = state.expenses 
 
   return {
-    expenseCount: visibleExpenses.length,
-    expensesTotal: selectExpensesTotal(visibleExpenses)
+    visibleExpenseCount: visibleExpenses.length,
+    invisibleExpenseCount: state.expenses.length - visibleExpenses.length,
+    visibleExpensesTotal: selectExpensesTotal(visibleExpenses),
+    invisibleExpensesTotal: selectExpensesTotal(invisibleExpenses) - selectExpensesTotal(visibleExpenses)
   };
 };
 
