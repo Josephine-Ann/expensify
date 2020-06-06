@@ -8,6 +8,7 @@
     line-height: 1;
     padding: $s-size;
     text-decoration: none;
+    margin-bottom: 3px;
 }
 
 .button--link {
@@ -16,4 +17,8 @@
 
 .button--secondary {
     background-color: #888888;
+}
+
+.button--login {
+    min-width: 188px;
 }
